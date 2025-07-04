@@ -35,7 +35,7 @@ input {
 
 /* Buttons */
 button {
-  padding: 8px 14px;
+  padding: 10px 20px; /* Set button size */
   margin: 5px;
   border: none;
   border-radius: 6px;
@@ -115,7 +115,7 @@ td button:hover {
 
 /* Modal Overlay */
 .modal {
-  display: none; /* This will be overridden by JS when shown */
+  display: none;
   position: fixed;
   inset: 0;
   z-index: 999;
@@ -137,7 +137,6 @@ td button:hover {
   animation: fadeIn 0.3s ease-in-out;
 }
 
-/* Animation */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -149,7 +148,7 @@ td button:hover {
   }
 }
 
-/* Modal Close (X) */
+/* Modal Close */
 .close-button {
   position: absolute;
   right: 16px;
@@ -226,20 +225,28 @@ form button[type="button"]:hover {
   box-shadow: 0 0 5px rgba(0, 74, 173, 0.4);
 }
 
-#status-filter {
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
+/* Dropdowns (make them match Buy New Bike button) */
+#status-filter, #sort-options {
+  width: 140px; /* Set to match button width */
+  padding: 10px 20px; /* Same padding as button */
+  border: none;
+  border-radius: 6px;
   background-color: #004aad;
   color: #fff;
   font-weight: bold;
   cursor: pointer;
   transition: background-color 0.2s;
+  text-align: center;
+  appearance: none; /* Remove browser styling */
+  -webkit-appearance: none;
+  -moz-appearance: none;
 }
 
-#status-filter:hover {
+#status-filter:hover,
+#sort-options:hover {
   background-color: #00337f;
 }
+
 .paid-button.paid {
   background-color: #28a745;
   color: #fff;
@@ -253,37 +260,12 @@ form button[type="button"]:hover {
 .paid-button:hover {
   opacity: 0.9;
 }
-.paid-button.paid {
-  background-color: #28a745; /* Green for Paid */
-  color: #fff;
-}
-
-.paid-button.not-paid {
-  background-color: #ff8c00; /* Orange for Not Paid */
-  color: #fff;
-}
 
 .edit-btn {
-  background-color: #007bff; /* Blue */
+  background-color: #007bff;
   color: #fff;
 }
 
 .edit-btn:hover {
   background-color: #0056b3;
-}
-
-.dashboard-split {
-  display: flex;
-  justify-content: space-between;
-  gap: 20px;
-  flex-wrap: wrap;
-}
-
-.dashboard-left,
-.dashboard-right {
-  flex: 1 1 45%;
-}
-
-.dashboard-buttons {
-  margin-top: 10px;
 }

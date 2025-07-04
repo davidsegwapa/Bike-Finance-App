@@ -6,8 +6,15 @@ let editIndex = null;
 
 document.addEventListener("DOMContentLoaded", () => {
   loadData();
-  const date = new Date().toLocaleDateString();
-  document.getElementById("current-date").textContent = date;
+  const currentDate = new Date();
+
+const day = String(currentDate.getDate()).padStart(2, "0"); // e.g., "04"
+const month = currentDate.toLocaleString("en-US", { month: "long" }); // e.g., "July"
+const year = currentDate.getFullYear(); // e.g., 2025
+
+const formattedDate = `${day} ${month} ${year}`; // e.g., "04 July 2025"
+document.getElementById("current-date").textContent = formattedDate;
+
   updateDashboard();
 });
 
@@ -30,7 +37,6 @@ function updateDashboard() {
 
   const activeBikes = bikes.filter(b => b.active).length;
   document.getElementById("active-bikes").textContent = activeBikes;
-
 
   // Outstanding Money = unpaid active bikes
   const outstandingMoney = bikes.reduce(
@@ -58,10 +64,11 @@ function updateDashboard() {
   const unpaidDrivers = bikes.filter(b => b.active && !b.paidThisMonth).length;
   document.getElementById("unpaid-drivers").textContent = unpaidDrivers;
 
-  // Bikes you can afford logic
-const bikePrice = 18000;
-const bikesYouCanBuy = Math.floor(totalMoney / bikePrice);
-document.getElementById("can-buy").textContent = bikesYouCanBuy;
+  // Can buy new bike logic (show how many)
+  const bikePrice = 18000;
+  const bikesYouCanBuy = Math.floor(totalMoney / bikePrice);
+  document.getElementById("can-buy").textContent =
+    bikesYouCanBuy > 0 ? `${bikesYouCanBuy} bike${bikesYouCanBuy > 1 ? "s" : ""}` : "No";
 
   renderBikes();
   saveData();
@@ -244,8 +251,9 @@ function toggleBikeList() {
 function filterBikes() {
   const searchValue = document.getElementById("search-bar").value.toLowerCase();
   const statusFilter = document.getElementById("status-filter").value;
+  const sortValue = document.getElementById("sort-options").value;
 
-  const filtered = bikes.filter(bike => {
+  let filtered = bikes.filter(bike => {
     const matchesSearch =
       bike.name.toLowerCase().includes(searchValue) ||
       bike.driver.name.toLowerCase().includes(searchValue) ||
@@ -260,6 +268,34 @@ function filterBikes() {
 
     return matchesSearch && matchesStatus;
   });
+
+  // Sort filtered array if sort option selected
+  switch (sortValue) {
+    case "id-asc":
+      filtered.sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
+      break;
+    case "id-desc":
+      filtered.sort((a, b) => b.name.toLowerCase().localeCompare(a.name.toLowerCase()));
+      break;
+    case "date-asc":
+      filtered.sort((a, b) => new Date(a.dateBought) - new Date(b.dateBought));
+      break;
+    case "date-desc":
+      filtered.sort((a, b) => new Date(b.dateBought) - new Date(a.dateBought));
+      break;
+    case "status-asc":
+      filtered.sort((a, b) => (a.active === b.active) ? 0 : a.active ? 1 : -1);
+      break;
+    case "status-desc":
+      filtered.sort((a, b) => (a.active === b.active) ? 0 : a.active ? -1 : 1);
+      break;
+    case "paid-asc":
+      filtered.sort((a, b) => (a.paidThisMonth === b.paidThisMonth) ? 0 : a.paidThisMonth ? 1 : -1);
+      break;
+    case "paid-desc":
+      filtered.sort((a, b) => (a.paidThisMonth === b.paidThisMonth) ? 0 : a.paidThisMonth ? -1 : 1);
+      break;
+  }
 
   renderBikes(filtered);
 }

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Bike Finance Dashboard</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
@@ -13,30 +13,27 @@
   </header>
 
   <main>
-    <section id="dashboard">
-  <div class="dashboard-split">
-    <div class="dashboard-left">
-      <h3>Total Money: R<span id="total-money">0</span></h3>
-      <h3>Active Bikes: <span id="active-bikes">0</span></h3>
-      <h3>Outstanding Money: R<span id="outstanding-money">0</span></h3>
-      <h3>Monthly Income Summary: R<span id="monthly-income">0</span></h3>
-    </div>
-    <div class="dashboard-right">
-      <h3>Bikes Close to Expiry: <span id="close-expiry">0</span></h3>
-      <h3>Expired Bikes: <span id="expired-bikes">0</span></h3>
-      <h3>Drivers Who Haven’t Paid: <span id="unpaid-drivers">0</span></h3>
-      <h3>Bikes You Can Afford: <span id="can-buy">0</span></h3>
-    </div>
-  </div>
+    <section id="dashboard" style="display: flex; justify-content: space-between; flex-wrap: wrap;">
+      <div style="flex: 1; min-width: 200px; margin-right: 20px;">
+        <h3>Total Money: R<span id="total-money">0</span></h3>
+        <h3>Active Bikes: <span id="active-bikes">0</span></h3>
+        <h3>Outstanding Money: R<span id="outstanding-money">0</span></h3>
+        <h3>Monthly Income Summary: R<span id="monthly-income">0</span></h3>
+      </div>
 
-  <div class="dashboard-buttons">
-    <button onclick="adjustMoney('add')">Add Money</button>
-    <button onclick="adjustMoney('subtract')">Subtract Money</button>
-    <button onclick="buyNewBike()">Buy New Bike</button>
-  </div>
-</section>
+      <div style="flex: 1; min-width: 200px;">
+        <h3>Bikes Close to Expiry: <span id="close-expiry">0</span></h3>
+        <h3>Expired Bikes: <span id="expired-bikes">0</span></h3>
+        <h3>Drivers Who Haven’t Paid: <span id="unpaid-drivers">0</span></h3>
+        <h3>Can Buy New Bike: <span id="can-buy">No</span></h3>
+      </div>
 
-
+      <div style="flex-basis: 100%; margin-top: 10px;">
+        <button onclick="adjustMoney('add')">Add Money</button>
+        <button onclick="adjustMoney('subtract')">Subtract Money</button>
+        <button onclick="buyNewBike()">Buy New Bike</button>
+      </div>
+    </section>
 
     <section id="bike-list">
       <h3 onclick="toggleBikeList()" style="cursor: pointer;">
@@ -54,6 +51,17 @@
           <option value="all">Show All</option>
           <option value="active">Active</option>
           <option value="inactive">Inactive</option>
+        </select>
+        <select id="sort-options" onchange="filterBikes()">
+          <option value="">Sort By</option>
+          <option value="id-asc">Bike ID (A → Z)</option>
+          <option value="id-desc">Bike ID (Z → A)</option>
+          <option value="date-asc">Date Bought (Oldest → Newest)</option>
+          <option value="date-desc">Date Bought (Newest → Oldest)</option>
+          <option value="status-asc">Status (Inactive → Active)</option>
+          <option value="status-desc">Status (Active → Inactive)</option>
+          <option value="paid-asc">Payment Status (Not Paid → Paid)</option>
+          <option value="paid-desc">Payment Status (Paid → Not Paid)</option>
         </select>
       </div>
 
