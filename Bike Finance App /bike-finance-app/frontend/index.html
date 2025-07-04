@@ -8,37 +8,94 @@
 </head>
 <body>
   <header>
-    <h1>📆 <span id="current-date"></span></h1>
-    <h2>🚴 Bike Finance Dashboard</h2>
+    <h1><span id="current-date"></span></h1>
+    <h2>Bike Finance Dashboard</h2>
   </header>
 
   <main>
     <section id="dashboard">
-      <h3>💰 Total Money: R<span id="total-money">0</span></h3>
-      <h3>🚲 Active Bikes: <span id="active-bikes">0</span></h3>
-      <h3>🛒 Can Buy New Bike: <span id="can-buy">No</span></h3>
-      <button onclick="adjustMoney('add')">➕ Add Money</button>
-      <button onclick="adjustMoney('subtract')">➖ Subtract Money</button>
-    </section>
+  <div class="dashboard-split">
+    <div class="dashboard-left">
+      <h3>Total Money: R<span id="total-money">0</span></h3>
+      <h3>Active Bikes: <span id="active-bikes">0</span></h3>
+      <h3>Outstanding Money: R<span id="outstanding-money">0</span></h3>
+      <h3>Monthly Income Summary: R<span id="monthly-income">0</span></h3>
+    </div>
+    <div class="dashboard-right">
+      <h3>Bikes Close to Expiry: <span id="close-expiry">0</span></h3>
+      <h3>Expired Bikes: <span id="expired-bikes">0</span></h3>
+      <h3>Drivers Who Haven’t Paid: <span id="unpaid-drivers">0</span></h3>
+      <h3>Bikes You Can Afford: <span id="can-buy">0</span></h3>
+    </div>
+  </div>
+
+  <div class="dashboard-buttons">
+    <button onclick="adjustMoney('add')">Add Money</button>
+    <button onclick="adjustMoney('subtract')">Subtract Money</button>
+    <button onclick="buyNewBike()">Buy New Bike</button>
+  </div>
+</section>
+
+
 
     <section id="bike-list">
-      <h3>📋 All Bikes</h3>
-      <div id="bikes-container">
-        <!-- Bikes will appear here dynamically -->
+      <h3 onclick="toggleBikeList()" style="cursor: pointer;">
+        All Bikes <span id="toggle-icon">➖</span>
+      </h3>
+
+      <div id="bike-controls" class="controls">
+        <input 
+          type="text" 
+          id="search-bar" 
+          placeholder="🔍 Search by Bike ID or Driver Name" 
+          oninput="filterBikes()" 
+        />
+        <select id="status-filter" onchange="filterBikes()">
+          <option value="all">Show All</option>
+          <option value="active">Active</option>
+          <option value="inactive">Inactive</option>
+        </select>
       </div>
-      <button onclick="openAddBikeForm()">➕ Add New Bike</button>
+
+      <table id="bikes-table">
+        <thead>
+          <tr>
+            <th>Bike ID</th>
+            <th>Driver Name</th>
+            <th>Driver Phone</th>
+            <th>License Plate</th>
+            <th>Date Bought</th>
+            <th>Status</th>
+            <th>Paid</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="bikes-table-body">
+          <!-- Bike rows will appear here dynamically -->
+        </tbody>
+      </table>
     </section>
 
-    <section id="add-bike-form" style="display: none;">
-      <h3>Add a New Bike</h3>
-      <form onsubmit="addBike(event)">
-        <input type="text" id="bike-name" placeholder="Bike Name/ID" required />
-        <input type="number" id="monthly-income" placeholder="Monthly Income (max R2500)" required />
-        <input type="number" id="dashboard-cut" placeholder="Amount to Dashboard" required />
-        <input type="text" id="driver-name" placeholder="Driver Name" required />
-        <button type="submit">Add Bike</button>
-      </form>
-    </section>
+    <!-- Modal Form -->
+    <div id="bike-modal" class="modal">
+      <div class="modal-content">
+        <span class="close-button" onclick="cancelEdit()">&times;</span>
+        <h3 id="form-title">Add a New Bike</h3>
+        <form onsubmit="saveBike(event)">
+          <input type="text" id="bike-name" placeholder="Bike ID/Name" required />
+          <input type="text" id="license-plate" placeholder="License Plate" required />
+          <input type="date" id="date-bought" placeholder="Date Bought" required />
+          <input type="number" id="dashboard-cut" placeholder="Amount to Dashboard" required />
+          <input type="text" id="driver-name" placeholder="Driver Name" required />
+          <input type="text" id="driver-phone" placeholder="Driver Phone" required />
+          <label>
+            <input type="checkbox" id="bike-active" checked /> Active
+          </label>
+          <button type="submit">Save Bike</button>
+          <button type="button" onclick="cancelEdit()">Cancel</button>
+        </form>
+      </div>
+    </div>
   </main>
 
   <script src="main.js"></script>

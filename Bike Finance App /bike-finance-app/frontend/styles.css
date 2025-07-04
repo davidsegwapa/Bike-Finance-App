@@ -1,28 +1,289 @@
+/* Base Styling */
 body {
   font-family: Arial, sans-serif;
   padding: 20px;
-  background-color: #f9f9f9;
+  background-color: #f0f4f8;
+  color: #333;
 }
 
+/* Header */
 header {
   text-align: center;
+  background-color: #002366;
+  color: #fff;
+  padding: 20px;
+  border-radius: 8px;
 }
 
+/* Section Cards */
 section {
   margin: 20px 0;
   padding: 15px;
   background-color: #ffffff;
-  border-radius: 10px;
-  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
 }
 
+/* Input Fields */
 input {
   margin: 5px;
   padding: 8px;
+  width: 200px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
+/* Buttons */
 button {
-  padding: 8px 12px;
-  margin-top: 10px;
+  padding: 8px 14px;
+  margin: 5px;
+  border: none;
+  border-radius: 6px;
   cursor: pointer;
+  font-weight: bold;
+  transition: all 0.2s ease-in-out;
+}
+
+button:hover {
+  opacity: 0.9;
+  transform: scale(1.02);
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+#dashboard button {
+  background-color: #004aad;
+  color: #fff;
+}
+
+#dashboard button:hover {
+  background-color: #00337f;
+}
+
+/* Table Styling */
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin-top: 10px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+th, td {
+  padding: 14px 16px;
+  text-align: left;
+  border: none;
+}
+
+th {
+  background-color: #002366;
+  color: #fff;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f5f7fa;
+}
+
+tbody tr:hover {
+  background-color: #e2ecff;
+  cursor: pointer;
+}
+
+/* Status Buttons */
+.status-button.active {
+  background-color: #28a745;
+  color: #fff;
+}
+
+.status-button.inactive {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+/* Edit Button */
+td button {
+  background-color: #ffa500;
+  color: #fff;
+}
+
+td button:hover {
+  background-color: #e69500;
+}
+
+/* Modal Overlay */
+.modal {
+  display: none; /* This will be overridden by JS when shown */
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(5px);
+}
+
+/* Modal Box */
+.modal-content {
+  background-color: #fff;
+  padding: 25px 30px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  position: relative;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Modal Close (X) */
+.close-button {
+  position: absolute;
+  right: 16px;
+  top: 12px;
+  font-size: 26px;
+  font-weight: bold;
+  color: #999;
+  cursor: pointer;
+}
+
+.close-button:hover {
+  color: #000;
+}
+
+/* Modal Form */
+.modal-content form {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-content input {
+  margin-bottom: 12px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.modal-content button {
+  margin-top: 8px;
+}
+
+/* Save Button */
+form button[type="submit"] {
+  background-color: #004aad;
+  color: #fff;
+}
+
+form button[type="submit"]:hover {
+  background-color: #00337f;
+}
+
+/* Cancel Button */
+form button[type="button"] {
+  background-color: #6c757d;
+  color: #fff;
+}
+
+form button[type="button"]:hover {
+  background-color: #5a6268;
+}
+
+/* Search Bar and Filter Styling */
+.controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  gap: 10px;
+}
+
+#search-bar {
+  flex: 1;
+  padding: 10px 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f5f7fa;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
+  font-size: 14px;
+}
+
+#search-bar:focus {
+  outline: none;
+  border-color: #004aad;
+  box-shadow: 0 0 5px rgba(0, 74, 173, 0.4);
+}
+
+#status-filter {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #004aad;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+#status-filter:hover {
+  background-color: #00337f;
+}
+.paid-button.paid {
+  background-color: #28a745;
+  color: #fff;
+}
+
+.paid-button.not-paid {
+  background-color: #ff8c00;
+  color: #fff;
+}
+
+.paid-button:hover {
+  opacity: 0.9;
+}
+.paid-button.paid {
+  background-color: #28a745; /* Green for Paid */
+  color: #fff;
+}
+
+.paid-button.not-paid {
+  background-color: #ff8c00; /* Orange for Not Paid */
+  color: #fff;
+}
+
+.edit-btn {
+  background-color: #007bff; /* Blue */
+  color: #fff;
+}
+
+.edit-btn:hover {
+  background-color: #0056b3;
+}
+
+.dashboard-split {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.dashboard-left,
+.dashboard-right {
+  flex: 1 1 45%;
+}
+
+.dashboard-buttons {
+  margin-top: 10px;
 }
