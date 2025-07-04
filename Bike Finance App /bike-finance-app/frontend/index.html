@@ -48,10 +48,12 @@
           oninput="filterBikes()" 
         />
         <select id="status-filter" onchange="filterBikes()">
-          <option value="all">Show All</option>
+          <option value="all">All</option>
           <option value="active">Active</option>
           <option value="inactive">Inactive</option>
+          <option value="about-to-expire">About to Expire</option> <!-- New option -->
         </select>
+
         <select id="sort-options" onchange="filterBikes()">
           <option value="">Sort By</option>
           <option value="id-asc">Bike ID (A → Z)</option>
@@ -67,17 +69,18 @@
 
       <table id="bikes-table">
         <thead>
-          <tr>
-            <th>Bike ID</th>
-            <th>Driver Name</th>
-            <th>Driver Phone</th>
-            <th>License Plate</th>
-            <th>Date Bought</th>
-            <th>Status</th>
-            <th>Paid</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
+  <tr>
+    <th>Bike ID</th>
+    <th>Driver Name</th>
+    <th>Driver Phone</th>
+    <th>License Plate</th>
+    <th>Date Bought</th>
+    <th>Months Active</th> <!-- ✅ Added this -->
+    <th>Status</th>
+    <th>Paid</th>
+    <th>Actions</th>
+  </tr>
+</thead>
         <tbody id="bikes-table-body">
           <!-- Bike rows will appear here dynamically -->
         </tbody>

@@ -269,3 +269,15 @@ form button[type="button"]:hover {
 .edit-btn:hover {
   background-color: #0056b3;
 }
+
+.paid-button.expired {
+  background-color: grey;
+  color: white;
+  cursor: default;
+}
+.paid-button.inactive {
+  background-color: #6c757d;
+  color: white;
+  cursor: default;
+}
+
